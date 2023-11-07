@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Blog\ActionsController;
 use App\Http\Controllers\Blog\FrontController;
+use App\Http\Middleware\Payments\AcquiringMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,7 +55,8 @@ Route::get('/blog/personal/{user_id}', [FrontController::class, 'personal'])
     -> name('blog.personal');
 
 Route::get('/blog/personal/post/{post_id}', [FrontController::class, 'personalPost'])
-    -> name('blog.personal.post');
+    -> name('blog.personal.post')
+    -> middleware(AcquiringMiddleware::class);
 Route::get('/blog/personal/post/{post_id}/like', [ActionsController::class, 'like'])
     -> name('blog.personal.post.like');
 
@@ -62,3 +64,6 @@ Route::post('/blog/personal/post/{post_id}/comment', [ActionsController::class, 
     -> name('blog.personal.post.comment');
 Route::get('/blog/personal/post/{post_id}/comment/{comment_id}/like', [ActionsController::class, 'commentLike'])
     -> name('blog.personal.post.comment.like');
+
+Route::get('/blog/payment', fn() => view('blog.payment'))
+    -> name('blog.payment');

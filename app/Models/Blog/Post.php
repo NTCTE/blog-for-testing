@@ -2,6 +2,7 @@
 
 namespace App\Models\Blog;
 
+use App\Models\Invoice;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,5 +39,14 @@ class Post extends Model
     public function likes()
     {
         return $this -> morphMany(Like::class, 'likeable');
+    }
+
+    public function is_paid()
+    {
+        return boolval(Invoice::where('payable_type', Post::class)
+            -> where('payable_id', $this -> id)
+            -> where('status', 'paid')
+            -> where('user_id', auth() -> id())
+            -> count()) || $this -> is_paid;
     }
 }
