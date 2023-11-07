@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Blog\Like;
+use App\Models\Blog\Post;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -43,4 +46,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Getters
+    public function posts()
+    {
+        return $this -> hasMany(Post::class);
+    }
+
+    public function likes()
+    {
+        return $this -> hasMany(Like::class);
+    }
 }

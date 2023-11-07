@@ -59,6 +59,9 @@
 					])
 				])>Home</a></li>
                 @auth
+					<li><a href="/account" @class([
+						'active' => request() -> path() === 'account'
+					])>My account</a></li>
                     <li><a href="/blog" @class([
 						'active' => request() -> path() === 'blog'
 					])>My blog</a></li>

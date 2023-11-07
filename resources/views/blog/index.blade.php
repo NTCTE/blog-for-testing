@@ -1,21 +1,13 @@
 @include('services.head')
 
 <ul style="list-style-type: none; padding: 0;">
-    <li style="background-color: #f2f2f2; padding: 10px; margin-bottom: 10px;">
-        <h3 style="margin-top: 0;">John Doe</h3>
-        <p style="margin-bottom: 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel bibendum bibendum, velit sapien lacinia sapien, vel bibendum sapien sapien vel sapien.</p>
-        <p style="margin-bottom: 0;"><a href="https://johndoe.com/blog">Visit my personal blog</a></p>
-    </li>
-    <li style="background-color: #f2f2f2; padding: 10px; margin-bottom: 10px;">
-        <h3 style="margin-top: 0;">Jane Smith</h3>
-        <p style="margin-bottom: 0;">Nullam euismod, nisl vel bibendum bibendum, velit sapien lacinia sapien, vel bibendum sapien sapien vel sapien.</p>
-        <p style="margin-bottom: 0;"><a href="https://johndoe.com/blog">Visit my personal blog</a></p>
-    </li>
-    <li style="background-color: #f2f2f2; padding: 10px; margin-bottom: 10px;">
-        <h3 style="margin-top: 0;">Bob Johnson</h3>
-        <p style="margin-bottom: 0;">Sed euismod, nisl vel bibendum bibendum, velit sapien lacinia sapien, vel bibendum sapien sapien vel sapien.</p>
-        <p style="margin-bottom: 0;"><a href="https://johndoe.com/blog">Visit my personal blog</a></p>
-    </li>
+    @foreach (\App\Models\User::all() as $user)
+        <li style="background-color: #f2f2f2; padding: 10px; margin-bottom: 10px;">
+            <h3 style="margin-top: 0;">{{ $user -> name }}</h3>
+            <p style="margin-bottom: 0;">{{ $user -> bio }}</p>
+            <p style="margin-bottom: 0;"><a href="{{ route('blog.personal', ['user_id' => $user -> id]) }}">Visit my personal blog</a></p>
+        </li>
+    @endforeach
 </ul>
 
 <div style="display: flex; justify-content: center; align-items: center;">
